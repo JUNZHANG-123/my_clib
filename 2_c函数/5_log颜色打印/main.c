@@ -30,7 +30,10 @@
 #include <stdarg.h>
 #include "log_general.h"
 
-
+int log_timestamp(void)
+{
+	return 0;
+}
 
 
 #define TAG   "AAA"
@@ -38,7 +41,7 @@
 int main(void)
 {
 
-	LOGE(TAG, LOG_FMT("zhangjun"));
+	LOGE(TAG, "zhangjun");
 	return 0;
 }
  

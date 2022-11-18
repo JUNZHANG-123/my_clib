@@ -27,7 +27,7 @@ bool cut_str(char *source_str, char *left_str, char *right_str, char *dest_str)
 	return false;
 }
 
-//去除字串
+//去除字串，并且去除分隔符
 bool cut_sub_str(char *source_str, char *sub_str)
 {
 	char *p = strstr(source_str, sub_str);

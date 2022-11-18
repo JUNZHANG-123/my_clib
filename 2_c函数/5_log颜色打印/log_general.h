@@ -1,24 +1,26 @@
 #ifndef __LOG_GENERAL_H__
 #define __LOG_GENERAL_H__
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-typedef enum {
-    LOG_NONE,       /*!< No log output */
-    LOG_ERROR,      /*!< Critical errors, software module can not recover on its own */
-    LOG_WARN,       /*!< Error conditions from which recovery measures have been taken */
-    LOG_INFO,       /*!< Information messages which describe normal flow of events */
-    LOG_DEBUG,      /*!< Extra information which is not necessary for normal use (values, pointers, sizes, etc). */
-    LOG_VERBOSE     /*!< Bigger chunks of debugging information, or frequent messages which can potentially flood the output. */
-} log_level_t;
+#define LOG_NONE            0   /*!< No log output */
+#define LOG_ERROR           1   /*!< Critical errors, software module can not recover on its own */
+#define LOG_WARN            2   /*!< Error conditions from which recovery measures have been taken */
+#define LOG_INFO            3   /*!< Information messages which describe normal flow of events */
+#define LOG_DEBUG           4   /*!< Extra information which is not necessary for normal use (values, pointers, sizes, etc). */
+#define LOG_VERBOSE         5   /*!< Bigger chunks of debugging information, or frequent messages which can potentially flood the output. */
 
+//LOG_FMT_ON设置为1时打印log所在的文件名，函数名和行数，0时关闭
+#define LOG_FMT_ON      0
+//log等级
 #define LOG_LOCAL_LEVEL LOG_DEBUG
+//log输出接口
+#define LOG_WRITE       printf
+//log时间戳接口
+#define LOG_TIMESTAMP   log_timestamp
 
-extern void log_write(log_level_t level,
-                   const char *tag,
-                   const char *format, ...);
-extern int log_timestamp(void);
+// int log_timestamp(void)
+// {
+    // return 0;
+// }
 
 #define LOG_COLOR_BLACK   "30"
 #define LOG_COLOR_RED     "31"
@@ -36,28 +38,46 @@ extern int log_timestamp(void);
 #define LOG_COLOR_D
 #define LOG_COLOR_V
 
-#define LOG_FMT(x)      "[%s %s %d]: " x, __FILE__, __FUNCTION__, __LINE__
+#if LOG_FMT_ON
+#define LOG_FFL     __FILE__, __FUNCTION__, __LINE__
+#define LOG_FFL_S   "[%s %s %d]: "
+#define LOG_COMMA   ,
+#else
+#define LOG_FFL
+#define LOG_FFL_S
+#define LOG_COMMA
+#endif
 
-#define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%u) %s: " format LOG_RESET_COLOR "\n"
-				   
-#define LOG_LEVEL(level, tag, format, ...) do {                     \
-        if (level==LOG_ERROR )          { log_write(LOG_ERROR,      tag, LOG_FORMAT(E, format), log_timestamp(), tag, ##__VA_ARGS__); } \
-        else if (level==LOG_WARN )      { log_write(LOG_WARN,       tag, LOG_FORMAT(W, format), log_timestamp(), tag, ##__VA_ARGS__); } \
-        else if (level==LOG_DEBUG )     { log_write(LOG_DEBUG,      tag, LOG_FORMAT(D, format), log_timestamp(), tag, ##__VA_ARGS__); } \
-        else if (level==LOG_VERBOSE )   { log_write(LOG_VERBOSE,    tag, LOG_FORMAT(V, format), log_timestamp(), tag, ##__VA_ARGS__); } \
-        else                            { log_write(LOG_INFO,       tag, LOG_FORMAT(I, format), log_timestamp(), tag, ##__VA_ARGS__); } \
-    } while(0)
+#define LOG_FORMAT(letter, format)  LOG_COLOR_ ## letter #letter " (%u) %s: " LOG_FFL_S format LOG_RESET_COLOR "\n"
 
-#define LOG_LEVEL_LOCAL(level, tag, format, ...) do {               \
-        if ( LOG_LOCAL_LEVEL >= level ) LOG_LEVEL(level, tag, format, ##__VA_ARGS__); \
-    } while(0)
-		
-	
-#define LOGE( tag, format, ... ) LOG_LEVEL_LOCAL(LOG_ERROR,   tag, format, ##__VA_ARGS__)
-#define LOGW( tag, format, ... ) LOG_LEVEL_LOCAL(LOG_WARN,    tag, format, ##__VA_ARGS__)
-#define LOGI( tag, format, ... ) LOG_LEVEL_LOCAL(LOG_INFO,    tag, format, ##__VA_ARGS__)
-#define LOGD( tag, format, ... ) LOG_LEVEL_LOCAL(LOG_DEBUG,   tag, format, ##__VA_ARGS__)
-#define LOGV( tag, format, ... ) LOG_LEVEL_LOCAL(LOG_VERBOSE, tag, format, ##__VA_ARGS__)
+#if LOG_LOCAL_LEVEL >= LOG_ERROR
+#define LOGE( tag, format, ... ) LOG_WRITE(LOG_FORMAT(E, format), LOG_TIMESTAMP(), tag LOG_COMMA LOG_FFL,##__VA_ARGS__)
+#else
+#define LOGE( tag, format, ... )
+#endif
 
+#if LOG_LOCAL_LEVEL >= LOG_WARN
+#define LOGW( tag, format, ... ) LOG_WRITE(LOG_FORMAT(W, format), LOG_TIMESTAMP(), tag LOG_COMMA LOG_FFL,##__VA_ARGS__)
+#else
+#define LOGW( tag, format, ... )
+#endif
+
+#if LOG_LOCAL_LEVEL >= LOG_INFO
+#define LOGI( tag, format, ... ) LOG_WRITE(LOG_FORMAT(I, format), LOG_TIMESTAMP(), tag LOG_COMMA LOG_FFL,##__VA_ARGS__)
+#else
+#define LOGI( tag, format, ... )
+#endif
+
+#if LOG_LOCAL_LEVEL >= LOG_DEBUG
+#define LOGD( tag, format, ... ) LOG_WRITE(LOG_FORMAT(D, format), LOG_TIMESTAMP(), tag LOG_COMMA LOG_FFL,##__VA_ARGS__)
+#else
+#define LOGD( tag, format, ... )
+#endif
+
+#if LOG_LOCAL_LEVEL >= LOG_VERBOSE
+#define LOGV( tag, format, ... ) LOG_WRITE(LOG_FORMAT(V, format), LOG_TIMESTAMP(), tag LOG_COMMA LOG_FFL,##__VA_ARGS__)
+#else
+#define LOGV( tag, format, ... )
+#endif
 
 #endif
