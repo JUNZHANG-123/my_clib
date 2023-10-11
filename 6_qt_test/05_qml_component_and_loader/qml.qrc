@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MyRectangle.qml</file>
+        <file>th.jpg</file>
+        <file>th2.gif</file>
+    </qresource>
+</RCC>
