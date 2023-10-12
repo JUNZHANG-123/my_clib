@@ -13,7 +13,7 @@ Rectangle {
     }
 
     focus: true
-    // 上下左右 可以移动按键
+    // 通过按键上下左右 可以移动按键
     Keys.onLeftPressed: square.x -= 8
     Keys.onRightPressed: square.x += 8
     Keys.onUpPressed: square.y -= 8
