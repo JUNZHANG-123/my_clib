@@ -537,3 +537,115 @@ FocusScope {
 }
 ```
 
+
+
+## 30_qml_key_element
+
+```
+    // 通过按键上下左右 可以移动按键
+    Keys.onLeftPressed: square.x -= 8
+    Keys.onRightPressed: square.x += 8
+    Keys.onUpPressed: square.y -= 8
+    Keys.onDownPressed: square.y += 8
+
+    Keys.onPressed: {
+        switch(event.key) {             // 加减放大缩小按键
+            case Qt.Key_Plus:
+                square.scale += 0.2
+            break;
+            case Qt.Key_Minus:
+                square.scale -= 0.2
+            break;
+        }
+    }
+}
+```
+
+
+
+## 31_qml_qmldir_test
+
+利用 singleton  来集中定义在一个文件中，从而被所有的模块所使用。
+
+这样的方法同样适合我们style我们的应用。我们在一个地方修改设置，但是在所有的模块中都使用。
+
+这类似于C/C++中定义一些常量，在不同的.cpp文件中使用一样。
+
+**Settings.qml**
+
+```
+pragma Singleton
+import QtQuick 2.0
+ 
+QtObject {
+    property int screenHeight: 960
+    property int screenWidth: 640
+ 
+    property string textSize: "x-large"
+    property string textColor: "red"
+}
+```
+
+首先，我们可以看到我们在文件的开始部分使用了pragam Singleton，表明这个文件在实例化时只能有一个实例。
+
+另外，我们必须在我们应用的根目录下添加如下的 **qmldir** 文件：
+
+```
+singleton Settings 1.0 Settings.qml
+```
+
+参考： [QML Styling 及 Singleton 使用方法浅谈_qml singleton-CSDN博客](https://blog.csdn.net/ubuntutouch/article/details/46980635)
+
+
+
+## 32_qml_flickable
+
+使用 Flickable 来实现 page 功能，可以上下滑动；
+
+
+
+## 33_qml_createObject
+
+1、使用 Component.createObject  来动态创建
+
+2、定义一个数组来维护销毁动态创建的组件
+
+
+
+```
+   property var itemCells: new Array  
+   Component.onCompleted: {
+   	   var cellCount = itemCells.length
+       for(var i = 0;i < cellCount;i++){
+          itemCells.pop().destroy();
+       }
+
+	itemCells.push(com.createObject(root,{width: 300}))     // 动态创建，并通过 itemCells 管理销毁
+
+   }
+	
+   Component.onDestruction: {
+        console.log("ZybEnchDictControl++++++++++++++++++++++++++++++++++")
+        var cellCount = itemCells.length
+        var cell;
+        for(var i = 0;i < cellCount;i++){
+            cell = itemCells.pop()
+            cell.parent = null
+            cell.destroy();
+        }
+
+    }
+```
+
+
+
+参考： [05动态创建QML对象_qml createobject-CSDN博客](https://blog.csdn.net/u013064585/article/details/108350797)
+
+
+
+
+
+
+
+
+
