@@ -643,9 +643,55 @@ singleton Settings 1.0 Settings.qml
 
 
 
+## 34_qml_ListModel
+
+1、通过外部数组动态控制 ListModel 中的元素，来动态创建绘制  
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+qml 中延时函数使用
+
+    function delay(duration) { // In milliseconds
+        var timeStart = new Date().getTime();
+    
+        while (new Date().getTime() - timeStart < duration) {
+            // Do nothing
+        }
+    
+        // Duration has passed
+    }
+
+
+
+待学习项：
+
+1、Flickable 的  boundsBehavior 和 flickableDirection
+
+        Flickable{
+            boundsBehavior: Flickable.DragOverBounds
+            //flickableDirection: Flickable.VerticalFlick
+            flickableDirection: Flickable.HorizontalFlick
+
+
+
+2、 Flickable  中建立一个  Grid  ，在其他地方添加 Grid 中的元素
+
+
+
+3、什么时候用item ，什么使用用 Flickable  
+
+4、Component 使用 createObject 异步创建，和loader 区别？一个是先画好，再异步加载，一个是先设置基本控件（属性未赋值），再动态设置创建（创建后会加载）控件属性

@@ -17,14 +17,49 @@ Window {
 //        height: 50
 //        color: "black"
 //    }
-//    Rectangle {
-//        x: 120
-//        y: 120
-//        z: 1
-//        width: 100
-//        height: 50
-//        color: "blue"
-//    }
+    Rectangle {
+        x: 120
+        y: 120
+        z: 1
+        width: 100
+        height: 50
+        color: "blue"
+
+        Text {
+            id: edit1
+//                        anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.top: parent.top
+            width: parent.width
+            height: paintedHeight
+            color: "#12CFA7"
+            font.pixelSize: 32
+            font.styleName: "Bold"
+            wrapMode: TextEdit.Wrap
+            //verticalAlignment: Text.AlignVCenter
+            //horizontalAlignment: paintedWidth < 764 ? Text.AlignHCenter: Text.AlignLeft
+            horizontalAlignment: Text.AlignLeft
+            text: "为什么派是无限不循环小数，派的平方等于多少？"
+        }
+
+        Text {
+            id: edit2
+            width: parent.width
+            height: text.length >0 ? paintedHeight:0
+            anchors.left: edit1.right
+            anchors.leftMargin: 20
+            anchors.verticalCenter: parent.verticalCenter
+            color: "#999999"
+            font.pixelSize: 22
+            font.family: Style.fontFamily
+            // verticalAlignment: Text.AlignVCenter
+            //horizontalAlignment: paintedWidth < 764 ? Text.AlignHCenter: Text.AlignLeft
+            //horizontalAlignment: text.length < 30 ? Text.AlignHCenter: Text.AlignLeft
+            horizontalAlignment: Text.AlignLeft
+            wrapMode: TextEdit.Wrap
+            text: "hello"
+        }
+    }
 
 
 

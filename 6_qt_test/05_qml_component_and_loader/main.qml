@@ -103,6 +103,14 @@ Window {
         asynchronous: true                                  // 是否异步加载，打开则loader 未完成时状态为 loading/2
         onStatusChanged: {
             console.log("onStatesChanged:", status)
+
+
+//            if (loader.status == Loader.Ready) {          // 可以在 Loader.Ready 之后修改属性
+//                loader.item.myTopMargin = 10                          // 加载完成后修改属性，使用 loader.item.  只能设置一级属性
+//                loader.item.myButtomMargin = 10
+//                loader.item.color = "red"
+//                console.log("xxx")
+//            }
         }
     }
 

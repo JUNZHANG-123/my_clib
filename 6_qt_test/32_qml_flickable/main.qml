@@ -51,13 +51,16 @@ Window {
         anchors.right: parent.right     // 固定右边
         anchors.rightMargin: 120
         anchors.bottom: parent.bottom
-        contentHeight: image.height + 30
+
+        // contentHeight 有父类宽度可以不设置？设置一个  Rectangle，下面加 Flickable，Flickable 设置 anchors.fill: parent
+        // 后，contentHeight 设置0也没事
+        contentHeight: image.height + 30        // contentHeight: contentItem.childrenRect.height  内容尺寸可以基于childrenRect自动设置
         ScrollBar.vertical: ScrollBar {visible: false } //创建一个竖向的滚动条
         clip : true
 
-//        onContentYChanged: {
-//            console.log("y:", contentY)
-//        }
+        onContentYChanged: {
+            console.log("image.height:", image.height, contentItem.childrenRect.height)
+        }
 //        onContentXChanged: {
 //            console.log("x:", contentX)
 //        }

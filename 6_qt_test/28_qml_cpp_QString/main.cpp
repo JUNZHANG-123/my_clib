@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "myqstringtest.h"
-
+#include <QJsonObject>
 
 int main(int argc, char *argv[])
 {
@@ -24,6 +24,25 @@ int main(int argc, char *argv[])
 
     // my test end
 
+    qDebug() << QString("process%1").arg(0);
+    QJsonObject info;
+
+    int data = 2;
+    info.insert(QString("progress%1").arg(1), QVariant(data).toJsonValue());
+    info.insert(QString("curIndex%1").arg(1), QVariant(data).toJsonValue());
+
+    info.insert(QString("progress%1").arg(1), QVariant(20).toJsonValue());
+
+    QJsonObject info2;
+    info2 = info;
+    info2.insert(QString("progress%1").arg(20), QVariant(10).toJsonValue());
+    info2.insert(QString("curIndex%1").arg(2), QVariant(data).toJsonValue());
+
+    qDebug() << info2 << info2.find( QString("progress%1").arg(2) )->isUndefined();
+
+    qDebug() << info2.contains(QString("progress%1").arg(1)) ;
+
+    qDebug() << info2[QString("progress%1").arg(1)].toInt() ;
 
     return app.exec();
 }

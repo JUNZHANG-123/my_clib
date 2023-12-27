@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Common/Config.qml</file>
+        <file>Common/Skin.qml</file>
+        <file>TitleBar/TopBar.qml</file>
+        <file>images/close.png</file>
+        <file>images/skin.png</file>
+        <file>images/winmax.png</file>
+        <file>images/winmin.png</file>
+        <file>images/winreturn.png</file>
+        <file>CusWidgets/ImageButton.qml</file>
+        <file>TitleBar/SkinPopWindow.qml</file>
+        <file>CusWidgets/Bubble.qml</file>
+        <file>Ble/BleScanPage.qml</file>
+        <file>Ble/BleConnectedPage.qml</file>
+    </qresource>
+</RCC>
