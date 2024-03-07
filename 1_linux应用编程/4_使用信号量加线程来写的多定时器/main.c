@@ -1,50 +1,21 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <linux/input.h>
 #include "m_timer.h"
 
-#define TEST1_TICK 3
+timer_handle_t timer1;
 
-timer_handle_t test1_timer_handle;
-void test1_stop_timer(void);
-
-void* test1_timeout_task(void *arg)
+void *timer_proc1(void *ptr)
 {
-	printf("%s %d: e\n", __FUNCTION__, __LINE__);
-
-	test1_stop_timer();
-
+    printf("%s: enter\n", __FUNCTION__);
+	
+	multi_timer_stop(&timer1);
 	return NULL;
 }
 
-void test1_stop_timer(void)
+int main(void)
 {
-	printf("%s %d: e\n", __FUNCTION__, __LINE__);
+	timer1.timeout_cb = timer_proc1;
+    multi_timer_start(3, &timer1, NULL, 0);
+	printf("%s:%d\n", __FUNCTION__, __LINE__);
 
-	multi_timer_stop(&test1_timer_handle);
-}
-
-void test1_start_timer(void)
-{
-	printf("%s %d: e.\n", __FUNCTION__, __LINE__);
-
-	test1_timer_handle.timeout_cb = test1_timeout_task;
-	multi_timer_start(TEST1_TICK, &test1_timer_handle, NULL, 0);
-}
-
-int main(int argc, char **argv)
-{
-
-	test1_start_timer();
-
-	//test1_stop_timer();
-
-	
+	while(1)sleep(1);
 	return 0;
 }
