@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/workspace/my_cmake/4_cevent/cevent.c
+cevent.h
+/workspace/my_cmake/4_cevent/cevent.h
+
+/workspace/my_cmake/4_cevent/cevent.h
+stdio.h
+-
+

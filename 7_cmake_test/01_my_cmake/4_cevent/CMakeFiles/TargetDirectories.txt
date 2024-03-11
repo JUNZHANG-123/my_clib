@@ -1,0 +1,3 @@
+/workspace/my_cmake/4_cevent/CMakeFiles/rebuild_cache.dir
+/workspace/my_cmake/4_cevent/CMakeFiles/edit_cache.dir
+/workspace/my_cmake/4_cevent/CMakeFiles/cevent_cmake.dir

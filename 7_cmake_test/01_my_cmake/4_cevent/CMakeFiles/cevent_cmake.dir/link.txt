@@ -1,0 +1,1 @@
+/usr/bin/cc   -T script.lds CMakeFiles/cevent_cmake.dir/cevent.c.o CMakeFiles/cevent_cmake.dir/main.c.o  -o cevent_cmake 
