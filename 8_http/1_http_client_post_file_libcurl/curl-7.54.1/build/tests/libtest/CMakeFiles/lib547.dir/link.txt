@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/lib547.dir/lib547.c.o CMakeFiles/lib547.dir/first.c.o -o lib547  -Wl,-rpath,/mnt/d/ProjectFiles/my_git/my_clib/8_http/1_http_client_post_file/curl-7.54.1/build/lib ../../lib/libcurl.so -ldl -lssl -lcrypto -lz 

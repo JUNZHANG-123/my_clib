@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/unit1603.dir/unit1603.c.o CMakeFiles/unit1603.dir/__/libtest/first.c.o -o unit1603  -Wl,-rpath,/mnt/d/ProjectFiles/my_git/my_clib/8_http/1_http_client_post_file/curl-7.54.1/build/lib ../../lib/libcurl.so -ldl -lssl -lcrypto -lz 

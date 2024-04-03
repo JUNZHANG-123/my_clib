@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/lib2033.dir/libntlmconnect.c.o CMakeFiles/lib2033.dir/first.c.o CMakeFiles/lib2033.dir/testutil.c.o CMakeFiles/lib2033.dir/__/__/lib/warnless.c.o -o lib2033  -Wl,-rpath,/mnt/d/ProjectFiles/my_git/my_clib/8_http/1_http_client_post_file/curl-7.54.1/build/lib ../../lib/libcurl.so -ldl -lssl -lcrypto -lz 

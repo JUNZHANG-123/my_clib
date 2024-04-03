@@ -1,0 +1,4 @@
+/mnt/d/ProjectFiles/httpserver.h/test/functional/build/CMakeFiles/functional-test-server.dir
+/mnt/d/ProjectFiles/httpserver.h/test/functional/build/CMakeFiles/functional-test-server-cpp.dir
+/mnt/d/ProjectFiles/httpserver.h/test/functional/build/CMakeFiles/edit_cache.dir
+/mnt/d/ProjectFiles/httpserver.h/test/functional/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/functional-test-server.dir/main.o -o functional-test-server 

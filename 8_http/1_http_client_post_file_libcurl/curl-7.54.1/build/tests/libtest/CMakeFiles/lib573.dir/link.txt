@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/lib573.dir/lib573.c.o CMakeFiles/lib573.dir/first.c.o CMakeFiles/lib573.dir/testutil.c.o CMakeFiles/lib573.dir/__/__/lib/warnless.c.o CMakeFiles/lib573.dir/testtrace.c.o -o lib573  -Wl,-rpath,/mnt/d/ProjectFiles/my_git/my_clib/8_http/1_http_client_post_file/curl-7.54.1/build/lib ../../lib/libcurl.so -ldl -lssl -lcrypto -lz 

@@ -1,0 +1,1 @@
+/usr/bin/cc -fPIC -shared  -o .libs/libhostname.so CMakeFiles/hostname.dir/sethostname.c.o 

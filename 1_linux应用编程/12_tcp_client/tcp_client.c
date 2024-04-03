@@ -9,7 +9,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#define SERVPORT 8888
+#define SERVPORT 		6009
+#define SERVER_IP		"192.168.137.251"
  
 int main(int argc,char *argv[]) {
     int sockfd,sendbytes;
@@ -26,7 +27,7 @@ int main(int argc,char *argv[]) {
     //填充服务器地址信息
     serv_addr.sin_family 	= AF_INET; //网络层的IP协议: IPV4
     serv_addr.sin_port 		= htons(SERVPORT); //传输层的端口号
-    serv_addr.sin_addr.s_addr   = inet_addr("192.168.5.1"); //网络层的IP地址: 实际的服务器IP地址
+    serv_addr.sin_addr.s_addr   = inet_addr(SERVER_IP); //网络层的IP地址: 实际的服务器IP地址
     bzero(&(serv_addr.sin_zero),8); //保留的8字节置零
 
     //2.发起对服务器的连接信息
@@ -38,13 +39,21 @@ int main(int argc,char *argv[]) {
 
     printf("connect successful! \n");
 
-    //3.发送消息给服务器端
-    if((sendbytes = send(sockfd,"hello",5,0)) < 0) {
-        perror("send");
-        exit(1);
-    }
+	int cnt = 0;
+	while (1) {
+		printf("cnt= %d \n",cnt);
+		if (cnt%10 == 0) {
+					//3.发送消息给服务器端
+			if((sendbytes = send(sockfd,"hello",5,0)) < 0) {
+				perror("send");
+				exit(1);
+			}
+			printf("send successful! %d \n",sendbytes);	
+		}
+		cnt++;
+		sleep(1);
+	}
 
-    printf("send successful! %d \n",sendbytes);
 
     //4.关闭
     close(sockfd);
