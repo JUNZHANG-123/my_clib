@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "bl_timer.h": "c",
+        "pthread.h": "c",
+        "stdint.h": "c"
+    }
+}
