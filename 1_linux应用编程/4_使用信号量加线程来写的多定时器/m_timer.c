@@ -20,8 +20,6 @@ static int multi_timer_init(void)
     int ret;
     
     memset(&timer_manage, 0, sizeof(timer_manage_t));
-	//printf("multi_timer_init e.\n");
-	
     if( (timer_manage.old_sigfunc = signal(SIGALRM, timer_ticks_cb)) == SIG_ERR) {
         return (-1);
     }
@@ -36,8 +34,7 @@ static int multi_timer_init(void)
     timer_manage.value.it_interval.tv_sec = TIMER_UNIT_SEC;
     timer_manage.value.it_interval.tv_usec = 0;
     ret = setitimer(ITIMER_REAL, &timer_manage.value, &timer_manage.ovalue);
-	
-    //printf("multi_timer_init x.\n");
+
     return (ret);
 }
 
@@ -102,7 +99,7 @@ EXIT:
 }
 
 /* returns the number of started timers */
-int multi_timer_get_cnt(void)
+static int multi_timer_get_cnt(void)
 {
 	int timer_cnt = 0;
 	
@@ -147,7 +144,7 @@ int multi_timer_stop(timer_handle_t *handle)
 static void timer_ticks_cb(int signo)
 {
 	timer_handle_t* target;
-	//printf("%s %d: e.\n", __FUNCTION__, __LINE__);
+	printf("%s %d: e.\n", __FUNCTION__, __LINE__);
 	for(target=timer_manage.head_handle; target; target=target->next) {
 		target->elapse++;
 		
@@ -155,11 +152,16 @@ static void timer_ticks_cb(int signo)
 			target->elapse = 0;
 			if (target->timeout_cb != NULL){
 				pthread_t thread;
+				struct sched_param param;
 				pthread_attr_t attr;
 				pthread_attr_init( &attr );
-				pthread_attr_setdetachstate(&attr,1);
+				pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);
+				pthread_attr_setschedpolicy(&attr, SCHED_RR);
+				param.sched_priority = 4;
+				pthread_attr_setschedparam(&attr, &param);
 				pthread_create(&thread, 
 					&attr, target->timeout_cb, (void*)target->arg_data);
+				pthread_attr_destroy(&attr);
 			}	
 		}
 	}

@@ -10,7 +10,6 @@
 #include <signal.h>
 #include <pthread.h>
 
-
 #define TIMER_UNIT_SEC	1
 
 typedef struct timer_handle {
@@ -26,7 +25,9 @@ typedef struct timer_handle {
 	struct timer_handle *next;
 }timer_handle_t;
 
-/* success, return 0; failed, return -1 */
+// 信号类定时器会影响系统信号，比如sleep
+
+/* start/restart 定时器 success, return 0; failed, return -1 */
 int multi_timer_start(int interval, timer_handle_t *handle, void *arg, int arg_len);
 /* success, return 0; failed, return -1 */
 int multi_timer_stop(timer_handle_t *handle);
