@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>qmls/CircularImage.qml</file>
+        <file>images/people.png</file>
     </qresource>
 </RCC>
